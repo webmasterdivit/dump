@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql-dump-restore:
+    build: .
+    container_name: mysql-dump-restore
+    volumes:
+      # Montar directorio local para dumps
+      - ./dumps:/app/dumps
+      # Montar directorio SSH si necesitas usar claves
+      - ~/.ssh:/root/.ssh:ro
+    environment:
+      # Variables para dump.sh (ajusta según tus necesidades)
+      - SSH_USER=${SSH_USER:-}
+      - SSH_HOST=${SSH_HOST:-}
+      - SSH_PORT=${SSH_PORT:-5829}
+      - REMOTE_DB_HOST=${REMOTE_DB_HOST:-127.0.0.1}
+      - REMOTE_DB_PORT=${REMOTE_DB_PORT:-3306}
+      - LOCAL_HOST=${LOCAL_HOST:-127.0.0.1}
+      - LOCAL_PORT=${LOCAL_PORT:-11224}
+      - DB_NAME=${DB_NAME:-api_hub}
+      - DB_USER=${DB_USER:-}
+      - DB_PASS=${DB_PASS:-}
+      
+      # Variables para restore.sh (ajusta según tu RDS)
+      - RDS_HOST=${RDS_HOST:-}
+      - RDS_PORT=${RDS_PORT:-3306}
+      - RDS_DATABASE=${RDS_DATABASE:-hubapi}
+      - RDS_USERNAME=${RDS_USERNAME:-}
+      - RDS_PASSWORD=${RDS_PASSWORD:-}
+      - SSL_MODE=${SSL_MODE:-REQUIRED}
+      - MAX_ALLOWED_PACKET=${MAX_ALLOWED_PACKET:-1G}
+    
+    # Mantener el contenedor ejecutándose
+    tty: true
+    stdin_open: true
+    
+    # Red host para acceso directo a puertos locales (opcional)
+    # network_mode: host

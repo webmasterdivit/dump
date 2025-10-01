@@ -25,19 +25,19 @@ show_help() {
 case "${1:-}" in
     "build")
         echo "🔨 Construyendo imagen Docker..."
-        docker-compose build
+        docker compose build
         ;;
     "up")
         echo "🚀 Levantando contenedor..."
-        docker-compose up -d
+        docker compose up -d
         ;;
     "down")
         echo "🛑 Parando contenedor..."
-        docker-compose down
+        docker compose down
         ;;
     "dump")
         echo "📦 Creando dump de base de datos..."
-        docker-compose exec mysql-dump-restore ./dump-docker.sh
+        docker compose exec mysql-dump-restore ./dump-docker.sh
         ;;
     "restore")
         if [[ -z "${2:-}" ]]; then
@@ -46,15 +46,15 @@ case "${1:-}" in
             exit 1
         fi
         echo "📥 Restaurando dump: $2"
-        docker-compose exec mysql-dump-restore ./restore-docker.sh "/app/$2"
+        docker compose exec mysql-dump-restore ./restore-docker.sh "/app/$2"
         ;;
     "shell")
         echo "🐚 Abriendo shell en el contenedor..."
-        docker-compose exec mysql-dump-restore bash
+        docker compose exec mysql-dump-restore bash
         ;;
     "logs")
         echo "📋 Mostrando logs..."
-        docker-compose logs -f mysql-dump-restore
+        docker compose logs -f mysql-dump-restore
         ;;
     "help"|"-h"|"--help"|"")
         show_help

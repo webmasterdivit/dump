@@ -29,7 +29,7 @@ cp .env.example .env
 ./docker-helper.sh dump
 
 # 4. Restaurar un dump
-./docker-helper.sh restore dumps/api_hub_2025-09-29_1310.sql.gz
+./docker-helper.sh restore dumps/schema.sql.gz
 
 # 5. Acceso interactivo
 ./docker-helper.sh shell
@@ -49,32 +49,32 @@ Edita el archivo `.env` con tus credenciales reales.
 #### 2. Construir la imagen
 
 ```bash
-docker-compose build
+docker compose build
 ```
 
 #### 3. Ejecutar el contenedor
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 #### 4. Ejecutar scripts
 
 ##### Para crear un dump:
 ```bash
-docker-compose exec mysql-dump-restore ./dump-docker.sh
+docker compose exec mysql-dump-restore ./dump-docker.sh
 ```
 
 ##### Para restaurar un dump:
 ```bash
-docker-compose exec mysql-dump-restore ./restore-docker.sh /app/dumps/api_hub_2025-09-29_1310.sql.gz
+docker compose exec mysql-dump-restore ./restore-docker.sh /app/dumps/api_hub_2025-09-29_1310.sql.gz
 ```
 
 #### 5. Acceso interactivo
 
 Para entrar al contenedor de forma interactiva:
 ```bash
-docker-compose exec mysql-dump-restore bash
+docker compose exec mysql-dump-restore bash
 ```
 
 ## Variables de entorno

@@ -13,14 +13,14 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copiar scripts y darles permisos de ejecución
-COPY dump.sh restore.sh dump-docker.sh restore-docker.sh ./
-RUN chmod +x dump.sh restore.sh dump-docker.sh restore-docker.sh
+COPY dump-docker.sh restore-docker.sh ./
+RUN chmod +x dump-docker.sh restore-docker.sh
 
 # Crear directorio para dumps
 RUN mkdir -p /app/dumps
 
 # Copiar dump existente si está presente
-COPY api_hub_2025-09-29_1310.sql.gz ./dumps/
+#COPY api_hub_2025-09-29_1310.sql.gz ./dumps/
 
 # Variables de entorno por defecto (pueden sobrescribirse)
 ENV SSH_USER=""
